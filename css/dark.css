@@ -135,7 +135,7 @@ header>h1 {
 
 .flag {
     max-width: 100%;
-    height: 150px;
+
     object-fit: cover;
 }
 
@@ -151,7 +151,7 @@ header>h1 {
     padding-bottom: 20px;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 952px) {
     .cards-container {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -163,7 +163,7 @@ header>h1 {
 
     .flag {
         max-width: 100%;
-        height: 130px;
+        /* height: 130px; */
         object-fit: cover;
     }
 
