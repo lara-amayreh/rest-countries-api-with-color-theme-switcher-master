@@ -17,6 +17,7 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: var(--VeryLightGrayBackground);
+    color: var(--VeryDarkBlueText);
 
 }
 
@@ -46,6 +47,8 @@ header>h1 {
 .theme {
     display: flex;
     gap: 5px;
+    padding-right: 10px;
+    cursor: pointer;
 }
 
 .main-section {
@@ -70,6 +73,7 @@ header>h1 {
     flex-direction: column;
     width: 180px;
     padding-top: 30px;
+    cursor: pointer;
 
 }
 
@@ -90,6 +94,7 @@ header>h1 {
     list-style: none;
     cursor: pointer;
 
+
 }
 
 .menu {
@@ -105,11 +110,16 @@ header>h1 {
 }
 
 .menu li:hover {
-    color: var(--DarkGrayInput);
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .desplay-menu {
     display: block;
+}
+
+.hidden {
+    display: none;
 }
 
 .cards-container {
@@ -117,6 +127,15 @@ header>h1 {
     flex-direction: column;
     gap: 20px;
     padding: 20px;
+}
+
+.native {
+    display: none;
+}
+
+.item {
+    background-color: var(--WhiteElements);
+    color: var(--VeryDarkBlueText);
 }
 
 .card {
@@ -129,9 +148,9 @@ header>h1 {
 
 .flag {
     position: relative;
-    max-width: 100%;
+    width: 100%;
     object-fit: cover;
-    height: 200px;
+    height: 50%;
 }
 
 .cnme {
@@ -163,11 +182,7 @@ header>h1 {
     }
 
 
-    .flag {
-        max-width: 100%;
-        height: 50%;
-        object-fit: cover;
-    }
+
 
     .search-container {
         display: flex;
@@ -198,7 +213,7 @@ header>h1 {
 
 
         width: 100%;
-        padding: 15px 30px;
+    padding: 15px 60px;
 
     }
 
@@ -207,6 +222,9 @@ header>h1 {
         padding-top: 0px;
 
     }
+        .flag {
+            object-fit: cover;
+        }
 
 }
 

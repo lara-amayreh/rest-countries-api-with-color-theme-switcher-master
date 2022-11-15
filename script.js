@@ -5,8 +5,20 @@ let filterText = document.querySelector(".filter-txt");
 let themeMode = document.querySelector(".theme-mode");
 const themeBtn = document.querySelector(".fa-regular");
 let cardscontainer = document.querySelector(".cards-container");
+let search = document.getElementById("search");
+let customselect = document.querySelector(".custom-select");
 
 window.addEventListener("load", onLoad);
+function searchByName() {
+  const cname = search.value.toLowerCase();
+  const contries = document.querySelectorAll(".card .cnme");
+  console.log(contries, cname);
+  for (let i = 0; i < contries.length; i++) {
+    if (contries[i].textContent.toLowerCase().includes(cname))
+      contries[i].parentElement.style.display = "block";
+    else contries[i].parentElement.style.display = "none";
+  }
+}
 
 function toogletheme() {
   var theme = document.getElementsByTagName("link")[0];
@@ -15,28 +27,9 @@ function toogletheme() {
   } else {
     theme.setAttribute("href", "css/light.css");
   }
+  localStorage.setItem("themm", JSON.stringify(theme.getAttribute("href")));
 }
 
-themeBtn.addEventListener("click", function () {
-  if (themeBtn.classList.contains("fa-moon")) {
-    themeBtn.classList.replace("fa-moon", "fa-sun");
-    themeMode.innerHTML = "Light Mood";
-  } else {
-    themeBtn.classList.replace("fa-sun", "fa-moon");
-    themeMode.innerHTML = "Dark Mood";
-  }
-  toogletheme();
-});
-careetDown.addEventListener("click", function () {
-  menu.classList.toggle("desplay-menu");
-});
-listitems.forEach((element) => {
-  element.addEventListener("click", function () {
-    filterText.innerHTML = element.innerHTML;
-    menu.classList.toggle("desplay-menu");
-    filter(element.innerHTML);
-  });
-});
 // api
 
 function generateCard(country) {
@@ -44,8 +37,7 @@ function generateCard(country) {
   card.classList.add("card");
   let flag = document.createElement("img");
   flag.classList.add("flag");
-
-  flag.setAttribute("src", country.flag);
+  flag.setAttribute("src", country.flags.svg);
   card.append(flag);
   let cname = document.createElement("h4");
   cname.classList.add("cnme");
@@ -62,58 +54,80 @@ function generateCard(country) {
   let capital = document.createElement("p");
   capital.classList.add("capital");
   capital.innerHTML = `<b>Capital</b>: ${country.capital}`;
-
   desc.append(popu);
   desc.append(region);
   desc.append(capital);
   card.append(desc);
   cardscontainer.append(card);
+
+  card.addEventListener("click", cardDetails);
+}
+function cardDetails() {
+  const natname = this.querySelector(".cnme");
+  console.log(natname);
+  couName = natname.innerHTML;
+  window.localStorage.setItem("Cname", JSON.stringify(couName));
+  window.location = "./country.html";
 }
 
 function onLoad() {
+  var theme = document.getElementsByTagName("link")[0];
+  let th = JSON.parse(window.localStorage.getItem("themm"));
+  console.log(th);
+  theme.setAttribute("href", th);
+
+  let t = theme.getAttribute("href");
+  window.localStorage.setItem("themm", JSON.stringify(t));
+  // console.log(y);
   const xhr = new XMLHttpRequest();
   const apiUrl = "https://restcountries.com/v2/all/";
-
   xhr.open("GET", apiUrl, true);
   xhr.onload = getcountries;
+
   xhr.send();
 }
 
 function getcountries() {
   if (this.status === 200) {
     const countries = JSON.parse(this.responseText);
-    for (let i = 0; i < 8; i++) {
+    console.log(countries);
+    for (let i = 0; i < countries.length; i++) {
       generateCard(countries[i]);
     }
   }
 }
 
-function getfiltercountries() {
-  if (this.status === 200) {
-    const countries = JSON.parse(this.responseText);
-    console.log(countries);
-    let name = document.querySelectorAll(".cnme");
-    let flag = document.querySelectorAll(".flag");
-    let popul = document.querySelectorAll(".popu");
-    let region = document.querySelectorAll(".region");
-    let capital = document.querySelectorAll(".capital");
-    for (let i = 0; i < 8; i++) {
-      name[i].innerHTML = countries[i].name.common;
-      flag[i].setAttribute("src", countries[i].flags.svg);
-      popul[i].innerHTML = `<b>population</b>: ${countries[i].population}`;
-      region[i].innerHTML = `<b>region</b>: ${countries[i].region}`;
-      capital[i].innerHTML = `<b>capital</b>: ${countries[i].capital}`;
-
-      console.log(countries[i]);
-    }
+function filter(region) {
+  const contries = document.querySelectorAll(".card .region");
+  console.log(contries.length);
+  for (let i = 0; i < contries.length; i++) {
+    if (!contries[i].textContent.includes(region))
+      contries[i].parentElement.parentElement.style.display = "none";
+    else contries[i].parentElement.parentElement.style.display = "block";
   }
 }
 
-function filter(country) {
-  const xhr = new XMLHttpRequest();
-  const apiUrl = `https://restcountries.com/v3.1/region/${country}`;
-  xhr.open("GET", apiUrl, true);
-  xhr.onload = getfiltercountries;
-  xhr.send();
-  // console.log(country);
-}
+listitems.forEach((element) => {
+  element.addEventListener("click", function () {
+    filterText.innerHTML = element.innerHTML;
+    element.parentElement.parentElement.classList.remove("desplay-menu");
+    filter(element.innerHTML);
+  });
+});
+
+search.addEventListener("keyup", searchByName);
+
+let themechange = document.querySelector(".theme");
+themechange.addEventListener("click", function () {
+  if (themeBtn.classList.contains("fa-moon")) {
+    themeBtn.classList.replace("fa-moon", "fa-sun");
+    themeMode.innerHTML = "Light Mood";
+  } else {
+    themeBtn.classList.replace("fa-sun", "fa-moon");
+    themeMode.innerHTML = "Dark Mood";
+  }
+  toogletheme();
+});
+customselect.addEventListener("click", function () {
+  menu.classList.toggle("desplay-menu");
+});
