@@ -60,13 +60,18 @@ function generateCard(country) {
   card.append(desc);
   cardscontainer.append(card);
 
-  card.addEventListener("click", cardDetails);
+  card.addEventListener("click", function () {
+    let couName = country;
+    window.localStorage.setItem("Cname", JSON.stringify(couName));
+    console.log(couName);
+    window.location = "./country.html";
+  });
 }
 function cardDetails() {
   const natname = this.querySelector(".cnme");
   console.log(natname);
-  couName = natname.innerHTML;
-  window.localStorage.setItem("Cname", JSON.stringify(couName));
+  // couName = natname.innerHTML;
+  //  window.localStorage.setItem("Cname", JSON.stringify(couName));
   window.location = "./country.html";
 }
 

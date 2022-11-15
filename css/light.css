@@ -151,6 +151,7 @@ header>h1 {
     width: 100%;
     object-fit: cover;
     height: 50%;
+    aspect-ratio: 2/1;
 }
 
 .cnme {
@@ -182,7 +183,11 @@ header>h1 {
     }
 
 
-
+    .flag {
+        object-fit: cover;
+        width: 50%;
+        height: 100%;
+    }
 
     .search-container {
         display: flex;
@@ -213,7 +218,7 @@ header>h1 {
 
 
         width: 100%;
-    padding: 15px 60px;
+        padding: 15px 60px;
 
     }
 
@@ -222,9 +227,8 @@ header>h1 {
         padding-top: 0px;
 
     }
-        .flag {
-            object-fit: cover;
-        }
+
+
 
 }
 
@@ -243,6 +247,12 @@ header>h1 {
         grid-auto-rows: min-content;
         padding: 20px 34px 0px;
         gap: 30px;
+    }
+
+    .flag {
+        object-fit: cover;
+        width: 50%;
+        height: 100%;
     }
 
 

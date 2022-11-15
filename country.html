@@ -15,18 +15,22 @@
         .Card {
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            /* gap: 40px; */
             padding-top: 50px;
             /* justify-content: space-between; */
             /* align-items: center; */
             width: 100%;
-            height: 50%;
+            /* height: 50%; */
         }
 
-        .flag {
-            width: 100%;
+        .desc p {
+            padding-top: 10px;
+        }
+
+        .flag_country {
+            min-width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
 
         }
 
@@ -55,14 +59,16 @@
         .desc3 {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 25px;
             padding: 10px;
             /* justify-content: center;
             align-items: center; */
         }
 
         .desc3 .item {
-            padding: 5px 30px;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0px;
         }
 
         .back {
@@ -92,19 +98,28 @@
             .Card {
                 display: flex;
                 flex-direction: row;
-                gap: 40px;
-                padding-top: 100px;
+                /* gap: 40px; */
+                /* padding-top: 100px; */
                 justify-content: space-between;
                 align-items: center;
                 width: 100%;
                 height: 100%;
+                padding-left: 0;
+                padding-right: 0;
             }
 
-            .flag {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
 
+            .flag {
+                object-fit: cover;
+                width: 50%;
+                height: 100%;
+                aspect-ratio: auto;
+            }
+
+            .desc3 .item {
+                width: 100%;
+                text-align: center;
+                padding: 10px 30px;
             }
 
             .wrapDiv {
@@ -113,10 +128,20 @@
                 justify-content: space-between;
                 gap: 50px;
 
+
             }
+
+            header {
+                padding: 35px 50px;
+            }
+
 
             .main-section {
                 height: 100%;
+
+                padding-left: 48px;
+                padding-right: 48px;
+
             }
 
             .desc3 {
@@ -124,7 +149,7 @@
                 flex-direction: row;
                 gap: 5px;
                 padding: 10px;
-                justify-content: center;
+                justify-content: space-between;
                 align-items: center;
             }
         }
@@ -170,15 +195,16 @@
             let x = JSON.parse(window.localStorage.getItem('Cname'));
             let y = JSON.parse(window.localStorage.getItem('themm'));
             var theme = document.getElementsByTagName("link")[0];
-            console.log(y);
+            console.log(x);
             theme.setAttribute("href", y);
-            const xhr = new XMLHttpRequest();
-            const apiUrl = `https://restcountries.com/v3.1/name/${x}`;
-
+            generateCard(x);
+            // const xhr = new XMLHttpRequest();
             // const apiUrl = `https://restcountries.com/v3.1/name/${x}`;
-            xhr.open("GET", apiUrl, true);
-            xhr.onload = getcountries;
-            xhr.send();
+
+            // // const apiUrl = `https://restcountries.com/v3.1/name/${x}`;
+            // xhr.open("GET", apiUrl, true);
+            // xhr.onload = getcountries;
+            // xhr.send();
         }
         function toogletheme() {
             var theme = document.getElementsByTagName("link")[0];
@@ -190,14 +216,15 @@
             localStorage.setItem("themm", JSON.stringify(theme.getAttribute("href")));
 
         }
-        function getcountries() {
-            if (this.status === 200) {
-                const countries = JSON.parse(this.responseText);
+        // function getcountries() {
+        //     // if (this.status === 200) {
+        //     //     const countries = JSON.parse(this.responseText);
 
-                generateCard(countries[0]);
+        //         generateCard(countries[0]);
+        //         console.log(countries[0]);
 
-            }
-        }
+
+        // }
         function generateCard(country) {
             console.log(country);
             let card = document.createElement("div");
@@ -211,7 +238,7 @@
             descWrapper.classList.add("descWrapper");
             let cname = document.createElement("h3");
             cname.classList.add("cnme");
-            cname.innerHTML = country.name.common;
+            cname.innerHTML = country.name;
 
             let wrapDiv = document.createElement("div");
             wrapDiv.classList.add("wrapDiv");
@@ -220,25 +247,29 @@
             desc1.classList.add("desc");
 
             let nativeName = document.createElement("p");
-            nativeName.classList.add("popu");
-            const nName = Object.values(country.name.nativeName)[0];
-            console.log(Object.values(nName)[1]);
-            nativeName.innerHTML = `<b>nativeName</b>: ${Object.values(nName)[1]}`;
+            // nativeName.classList.add("popu");
+            if (country.hasOwnProperty("nativeName")) {
 
+
+
+                nativeName.innerHTML = `<b>nativeName</b>: ${country.nativeName}`;
+            }
+            else
+                nativeName.innerHTML = `<b>nativeName</b>:${country.name}`;
             let popu = document.createElement("p");
-            popu.classList.add("popu");
+            // popu.classList.add("popu");
             popu.innerHTML = `<b>population</b>: ${country.population}`;
 
             let region = document.createElement("p");
-            region.classList.add("region");
+            // region.classList.add("region");
             region.innerHTML = `<b>Region</b>: ${country.region}`;
 
             let subregion = document.createElement("p");
-            subregion.classList.add("region");
+            // subregion.classList.add("region");
             subregion.innerHTML = `<b>SubRegion</b>: ${country.subregion}`;
 
             let capital = document.createElement("p");
-            capital.classList.add("capital");
+            // capital.classList.add("capital");
             capital.innerHTML = `<b>Capital</b>: ${country.capital}`;
             wrapDiv.append(cname, desc1);
             //desc2
@@ -246,22 +277,30 @@
             desc2.classList.add("desc");
 
             let domain = document.createElement("p");
-            domain.classList.add("popu");
-            domain.innerHTML = `<b>Top Level Domain</b>: ${country.tld[0]}`;
+            // domain.classList.add("popu");
+            domain.innerHTML = `<b>Top Level Domain</b>: ${country.topLevelDomain[0]}`;
 
             let curriences = document.createElement("p");
-            curriences.classList.add("popu");
-            let curun = Object.values(country.currencies)[0];
-            curriences.innerHTML = `<b>Curriences</b>: ${Object.values(curun)[0]}`;
+            // curriences.classList.add("popu");
+
+            if (country.hasOwnProperty("currencies")) {
+                let curun = country.currencies[0].code;
+
+                curriences.innerHTML = `<b>Curriences</b>: ${curun}`;
+            }
+
 
             let languages = document.createElement("p");
-            languages.classList.add("region");
-            let obj = country.languages;
-            let lang = "";
-            for (let l in obj) {
+            // languages.classList.add("region");
+            const langu = country.languages;
 
-                lang += (obj[l]) + " , ";
+            let lang = "";
+            for (let i = 0; i < langu.length; i++) {
+                lang += langu[i].name + " , ";
             }
+
+
+
             languages.innerHTML = `<b>languages</b> : ${lang}`;
             let desc3 = document.createElement("div");
             let borderHeder = document.createElement("div");
@@ -276,8 +315,9 @@
                     border.innerHTML = country.borders[j];
                     desc4.append(border);
                 }
+                desc3.append(borderHeder, desc4);
+
             }
-            desc3.append(borderHeder, desc4);
 
             desc1.append(nativeName);
             desc1.append(popu);
