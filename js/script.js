@@ -40,7 +40,7 @@ function saveOnLocal(key, value) {
 }
 function searchByName() {
   let search = document.getElementById("search");
-  let searchValue = search.value;
+  let searchValue = search.value.toLowerCase();
   let contriesNames = document.querySelectorAll(".card .cnme");
 
   console.log(contriesNames, searchValue);
