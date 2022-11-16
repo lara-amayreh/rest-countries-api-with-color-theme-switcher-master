@@ -46,7 +46,7 @@ function searchByName() {
   console.log(contriesNames, searchValue);
   for (let i = 0; i < contriesNames.length; i++) {
     if (contriesNames[i].textContent.toLowerCase().includes(searchValue))
-      contriesNames[i].parentElement.setAttribute("style", "display:flix");
+      contriesNames[i].parentElement.setAttribute("style", "display:flex");
     else contriesNames[i].parentElement.setAttribute("style", "display:none");
   }
 }
