@@ -22,10 +22,6 @@
     padding-top: 10px;
 }
 
-header {
-    padding: 20px 25px;
-    box-shadow: 0 0 15px var(--DarkGrayInput);
-}
 
 .wrapDiv {
     display: flex;
@@ -94,6 +90,7 @@ header {
 
     .flag {
         object-fit: cover;
+        min-width: 100%;
 
 
     }

@@ -1,14 +1,14 @@
-let themeMode = document.querySelector(".theme-mode");
-const themeBtn = document.querySelector(".fa-regular");
-const back = document.querySelector(".back");
-let container = document.querySelector(".container");
+// let themeMode = document.querySelector(".theme-mode");
+// const themeBtn = document.querySelector(".fa-regular");
+// const back = document.querySelector(".back");
+// let container = document.querySelector(".container");
 
 window.addEventListener("load", onLoad);
 
 function onLoad() {
   let countryObj = getitemFromLocal("Cname");
   let localTheme = getitemFromLocal("themm");
-  var theme = document.getElementsByTagName("link")[0];
+  let theme = document.getElementsByTagName("link")[0];
   if (localTheme != theme.getAttribute("href")) {
     theme.setAttribute("href", localTheme);
     changeIcon();
@@ -30,6 +30,7 @@ themechange.addEventListener("click", function () {
 });
 
 function changeIcon() {
+  let themeMode = document.querySelector(".theme-mode");
   const themeBtn = document.querySelector(".fa-regular");
   if (themeBtn.classList.contains("fa-moon")) {
     themeBtn.classList.replace("fa-moon", "fa-sun");
@@ -80,66 +81,25 @@ function generateCard(country) {
   let desc4 = creatElement("p", "desc4");
   let desc3 = creatElement("p", "desc3");
 
-  //   let card = document.createElement("div");
-  //   card.classList.add("Card");
-  //   let flag = document.createElement("img");
-  //   flag.classList.add("flag");
   flag.setAttribute("src", country.flags.svg);
   wrapper.append(flag);
-
-  //   let descWrapper = document.createElement("div");
-  //   descWrapper.classList.add("descWrapper");
-  //   let cname = document.createElement("h3");
-  //   cname.classList.add("cnme");
   cname.innerHTML = country.name;
 
-  //   let wrapDiv = document.createElement("div");
-  //   wrapDiv.classList.add("wrapDiv");
-
-  //   let desc1 = document.createElement("div");
-  //   desc1.classList.add("desc");
-
-  //   let nativeName = document.createElement("p");
-  // nativeName.classList.add("popu");
   if (country.hasOwnProperty("nativeName")) {
     nativeName.innerHTML = `<b>nativeName</b>: ${country.nativeName}`;
   } else nativeName.innerHTML = `<b>nativeName</b>:${country.name}`;
-
-  //   let popu = document.createElement("p");
-  // popu.classList.add("popu");
   popu.innerHTML = `<b>population</b>: ${country.population}`;
-
-  //   let region = document.createElement("p");
-  // region.classList.add("region");
   region.innerHTML = `<b>Region</b>: ${country.region}`;
-
-  //   let subregion = document.createElement("p");
-  // subregion.classList.add("region");
   subregion.innerHTML = `<b>SubRegion</b>: ${country.subregion}`;
-
-  //   let capital = document.createElement("p");
-  // capital.classList.add("capital");
   capital.innerHTML = `<b>Capital</b>: ${country.capital}`;
   wrapDiv.append(cname, desc1);
-  //desc2
-  //   let desc2 = document.createElement("div");
-  //   desc2.classList.add("desc");
-
-  //   let domain = document.createElement("p");
-  // domain.classList.add("popu");
   domain.innerHTML = `<b>Top Level Domain</b>: ${country.topLevelDomain[0]}`;
-
-  //   let curriences = document.createElement("p");
-  // curriences.classList.add("popu");
-
   if (country.hasOwnProperty("currencies")) {
     let curun = country.currencies[0].code;
 
     curriences.innerHTML = `<b>Curriences</b>: ${curun}`;
   }
 
-  //   let languages = document.createElement("p");
-  // languages.classList.add("region");
   const langu = country.languages;
 
   let lang = "";
@@ -148,16 +108,11 @@ function generateCard(country) {
   }
 
   languages.innerHTML = `<b>languages</b> : ${lang}`;
-  //   let borderHeder = document.createElement("div");
-  //   desc3.classList.add("desc3");
   borderHeder.innerHTML = `<b>Border Contries</b>:`;
-  //   let desc4 = document.createElement("div");
-  //   desc4.classList.add("desc4");
   if (country.hasOwnProperty("borders")) {
     for (let j = 0; j < country.borders.length && j < 3; j++) {
       let border = creatElement("div", "item");
-      //   document.createElement("div");
-      //   border.classList.add("item");
+
       border.innerHTML = country.borders[j];
       desc4.append(border);
     }
@@ -175,23 +130,7 @@ function generateCard(country) {
   wrapper.append(descWrapper);
   container.append(wrapper);
 }
-
+let back = document.querySelector(".back");
 back.addEventListener("click", function () {
   window.location = "./index.html";
 });
-
-// // var retrievedObject = localStorage.getItem('testObject');
-// // console.log('retrievedObject: ', JSON.parse(retrievedObject));
-// let x = JSON.parse(window.localStorage.getItem('Cname'));
-// const xhr = new XMLHttpRequest();
-// const apiUrl = `https://restcountries.com/v3.1/name/${x}`;
-// xhr.open("GET", apiUrl, true);
-// xhr.onload = function () {
-//     if (this.status === 200) {
-//         const countries = JSON.parse(this.responseText);
-
-//         console.log(countries[0]);
-//         generateCard(countries);
-//     }
-// }
-// xhr.send();

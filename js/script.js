@@ -45,7 +45,7 @@ function searchByName() {
   console.log(contriesNames, searchValue);
   for (let i = 0; i < contriesNames.length; i++) {
     if (contriesNames[i].textContent.toLowerCase().includes(searchValue))
-      contriesNames[i].parentElement.style.display = "block";
+      contriesNames[i].parentElement.style.display = "flix";
     else contriesNames[i].parentElement.style.display = "none";
   }
 }
@@ -95,7 +95,7 @@ function filter(region) {
   for (let i = 0; i < contries.length; i++) {
     if (!contries[i].textContent.includes(region))
       contries[i].parentElement.parentElement.style.display = "none";
-    else contries[i].parentElement.parentElement.style.display = "block";
+    else contries[i].parentElement.parentElement.style.display = "flex";
   }
 }
 
