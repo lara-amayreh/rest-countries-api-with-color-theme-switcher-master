@@ -40,13 +40,14 @@ function saveOnLocal(key, value) {
 }
 function searchByName() {
   let search = document.getElementById("search");
-  const searchValue = search.value.toLowerCase();
-  const contriesNames = document.querySelectorAll(".card .cnme");
+  let searchValue = search.value;
+  let contriesNames = document.querySelectorAll(".card .cnme");
+
   console.log(contriesNames, searchValue);
   for (let i = 0; i < contriesNames.length; i++) {
     if (contriesNames[i].textContent.toLowerCase().includes(searchValue))
-      contriesNames[i].parentElement.style.display = "flix";
-    else contriesNames[i].parentElement.style.display = "none";
+      contriesNames[i].parentElement.setAttribute("style", "display:flix");
+    else contriesNames[i].parentElement.setAttribute("style", "display:none");
   }
 }
 

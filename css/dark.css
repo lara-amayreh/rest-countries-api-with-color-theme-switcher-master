@@ -92,7 +92,9 @@ header>h1 {
     align-items: center;
 
 }
-
+.hide{
+    display: none;
+}
 
 .menu li {
     list-style: none;
