@@ -1,7 +1,8 @@
 function onLoad() {
   let theme = document.getElementsByTagName("link")[0];
   let th = JSON.parse(localStorage.getItem("themm"));
-  if (th != theme.getAttribute("href") && th !== "") {
+  if (th !== theme.getAttribute("href") && th !== null) {
+    console.log(th,theme.getAttribute("href"));
     theme.setAttribute("href", th);
     changeIcon();
   }

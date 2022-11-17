@@ -194,7 +194,7 @@ header>h1 {
 
     .flag {
         object-fit: cover;
-        width: 50%;
+        width: 100%;
         height: 100%;
     }
 
@@ -262,7 +262,9 @@ header>h1 {
         padding: 20px 34px 0px;
         gap: 30px;
     }
-
+  header {
+      padding: 30px 60px;
+  }
     .flag {
         object-fit: cover;
         width: 100%;

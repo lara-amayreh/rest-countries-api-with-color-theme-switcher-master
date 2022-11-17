@@ -8,8 +8,10 @@ window.addEventListener("load", onLoad);
 function onLoad() {
   let countryObj = getitemFromLocal("Cname");
   let localTheme = getitemFromLocal("themm");
-  let theme = document.getElementsByTagName("link")[0];
-  if (localTheme != theme.getAttribute("href")) {
+  const theme = document.getElementsByTagName("link")[0];
+  let hrefSrc = theme.getAttribute("href");
+  if (localTheme !== null && localTheme !== hrefSrc) {
+    console.log(hrefSrc);
     theme.setAttribute("href", localTheme);
     changeIcon();
   }
@@ -17,7 +19,7 @@ function onLoad() {
 }
 
 function getitemFromLocal(key) {
-  return JSON.parse(localStorage.getItem(key));
+  return JSON.parse(window.localStorage.getItem(key));
 }
 function saveOnLocal(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
@@ -118,12 +120,7 @@ function generateCard(country) {
     }
     desc3.append(borderHeder, desc4);
   }
-
-  desc1.append(nativeName);
-  desc1.append(popu);
-  desc1.append(region);
-  desc1.append(subregion);
-  desc1.append(capital);
+  desc1.append(nativeName, popu, region, subregion, capital);
   desc2.append(domain, curriences, languages);
   wrapDiv.append(desc1, desc2);
   descWrapper.append(cname, wrapDiv, desc3);
