@@ -260,10 +260,10 @@ header>h1 {
         grid-template-columns: repeat(4, minmax(0, 1fr));
         grid-auto-rows: min-content;
         padding: 20px 34px 0px;
-        gap: 30px;
+        gap: 40px;
     }
   header {
-      padding: 30px 60px;
+      padding: 20px 60px;
   }
     .flag {
         object-fit: cover;
