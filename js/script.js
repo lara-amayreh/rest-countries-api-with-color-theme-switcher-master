@@ -63,6 +63,7 @@ function generateCard(country) {
   let capital = creatElement("p", "capital");
 
   flag.setAttribute("src", country.flags.svg);
+  flag.setAttribute("alt",`flag of ${country.name}`);
   cname.innerHTML = country.name;
   popu.innerHTML = `<b>population</b>: ${country.population}`;
   region.innerHTML = `<b>Region</b> : ${country.region}`;
@@ -73,7 +74,7 @@ function generateCard(country) {
   card.addEventListener("click", function () {
     let couName = country;
     saveOnLocal("Cname", couName);
-    window.location = "./country.html";
+       window.location = "./country.html";
   });
 }
 

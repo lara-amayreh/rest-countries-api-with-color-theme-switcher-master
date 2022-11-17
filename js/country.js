@@ -1,8 +1,3 @@
-// let themeMode = document.querySelector(".theme-mode");
-// const themeBtn = document.querySelector(".fa-regular");
-// const back = document.querySelector(".back");
-// let container = document.querySelector(".container");
-
 window.addEventListener("load", onLoad);
 
 function onLoad() {
@@ -84,6 +79,7 @@ function generateCard(country) {
   let desc3 = creatElement("p", "desc3");
 
   flag.setAttribute("src", country.flags.svg);
+  flag.setAttribute("alt", `flag of ${country.name}`);
   wrapper.append(flag);
   cname.innerHTML = country.name;
 
@@ -114,7 +110,6 @@ function generateCard(country) {
   if (country.hasOwnProperty("borders")) {
     for (let j = 0; j < country.borders.length && j < 3; j++) {
       let border = creatElement("div", "item");
-
       border.innerHTML = country.borders[j];
       desc4.append(border);
     }
