@@ -4,7 +4,6 @@ function onLoad() {
   let PassedData = window.location.href;
   let passeValue = PassedData.slice(PassedData.lastIndexOf("=") + 1);
   console.log(passeValue);
-  // let countryObj = getitemFromLocal("Cname");
   let localTheme = getitemFromLocal("themm");
   const theme = document.getElementsByTagName("link")[0];
   let hrefSrc = theme.getAttribute("href");
@@ -94,10 +93,10 @@ function generateCard(country) {
   flag.setAttribute("alt", `flag of ${country.name}`);
   wrapper.append(flag);
   cname.innerHTML = country.name.common;
-
-  if (country.hasOwnProperty("nativeName")) {
-    nativeName.innerHTML = `<b>nativeName</b>: ${country.nativeName.common}`;
-  } else nativeName.innerHTML = `<b>nativeName</b>:${country.name}`;
+  // if (country.hasOwnProperty("nativeName")) {
+  let NativeName = Object.values(country.name.nativeName)[0].common;
+  nativeName.innerHTML = `<b>nativeName</b>: ${NativeName}`;
+  // } else nativeName.innerHTML = `<b>nativeName</b>:${country.name}`;
   popu.innerHTML = `<b>population</b>: ${country.population}`;
   region.innerHTML = `<b>Region</b>: ${country.region}`;
   subregion.innerHTML = `<b>SubRegion</b>: ${country.subregion}`;
@@ -110,14 +109,9 @@ function generateCard(country) {
   //   curriences.innerHTML = `<b>Curriences</b>: ${curun}`;
   // }
 
-  const langu = country.languages;
+  const langu = Object.values(country.languages);
 
-  let lang = "";
-  for (let i = 0; i < langu.length; i++) {
-    lang += langu[i] + " , ";
-  }
-
-  languages.innerHTML = `<b>languages</b> : ${lang}`;
+  languages.innerHTML = `<b>languages</b> : ${langu}`;
   borderHeder.innerHTML = `<b>Border Contries</b>:`;
   if (country.hasOwnProperty("borders")) {
     for (let j = 0; j < country.borders.length && j < 4; j++) {
