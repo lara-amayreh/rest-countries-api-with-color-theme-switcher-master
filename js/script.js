@@ -79,8 +79,8 @@ function generateCard(country) {
     saveOnLocal("Cname", country.alpha3Code);
     console.log(country.alpha3Code);
     let data = country.alpha3Code;
-    let url = "../country.html?data="+encodeURIComponent(data);
-     console.log(url);
+    let url = "./country.html?data=" + encodeURIComponent(data);
+    console.log(url);
     window.location.href = url;
   });
 }
