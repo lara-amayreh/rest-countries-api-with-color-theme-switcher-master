@@ -136,7 +136,7 @@ back.addEventListener("click", () => {
 
 async function viewBorder() {
   let data = this.innerHTML;
-  let url = "../border.html?data=" + encodeURIComponent(data);
+  let url = "./country.html?data=" + encodeURIComponent(data);
   console.log(url);
   window.location.href = url;
 }
