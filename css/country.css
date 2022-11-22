@@ -10,7 +10,7 @@
 
 .desc {
     padding-bottom: 20px;
-    ;
+    
 }
 
 .wrapper {
@@ -48,6 +48,7 @@
     width: 100%;
     text-align: center;
     padding: 10px 0px;
+    cursor: pointer;
 }
 
 .back {
@@ -89,7 +90,7 @@
     }
 
     .flag {
-        object-fit: cover;
+        object-fit: contain;
         min-width: 100%;
 
 

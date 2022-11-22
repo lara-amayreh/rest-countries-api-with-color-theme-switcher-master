@@ -10,18 +10,29 @@ function onLoad() {
     theme.setAttribute("href", localTheme);
     changeIcon();
   }
-  generateCard(countryObj);
+  fetchData(countryObj);
+
+  //  generateCard(countryObj);
+}
+async function fetchData(countryObj) {
+  let url = countryObj;
+  let response = await fetch(
+    `https://restcountries.com/v3.1/alpha/${url}`
+  ).then((response) => response.json());
+  console.log(response[0]);
+  generateCard(response[0]);
 }
 
 function getitemFromLocal(key) {
   return JSON.parse(window.localStorage.getItem(key));
 }
+
 function saveOnLocal(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
 let themechange = document.querySelector(".theme");
-themechange.addEventListener("click", function () {
+themechange.addEventListener("click", () => {
   changeIcon();
   toogletheme();
 });
@@ -81,40 +92,41 @@ function generateCard(country) {
   flag.setAttribute("src", country.flags.svg);
   flag.setAttribute("alt", `flag of ${country.name}`);
   wrapper.append(flag);
-  cname.innerHTML = country.name;
+  cname.innerHTML = country.name.common;
 
   if (country.hasOwnProperty("nativeName")) {
-    nativeName.innerHTML = `<b>nativeName</b>: ${country.nativeName}`;
+    nativeName.innerHTML = `<b>nativeName</b>: ${country.nativeName.common}`;
   } else nativeName.innerHTML = `<b>nativeName</b>:${country.name}`;
   popu.innerHTML = `<b>population</b>: ${country.population}`;
   region.innerHTML = `<b>Region</b>: ${country.region}`;
   subregion.innerHTML = `<b>SubRegion</b>: ${country.subregion}`;
   capital.innerHTML = `<b>Capital</b>: ${country.capital}`;
   wrapDiv.append(cname, desc1);
-  domain.innerHTML = `<b>Top Level Domain</b>: ${country.topLevelDomain[0]}`;
-  if (country.hasOwnProperty("currencies")) {
-    let curun = country.currencies[0].code;
+  domain.innerHTML = `<b>Top Level Domain</b>: ${country.tld[0]}`;
+  // if (country.hasOwnProperty("currencies")) {
+  //   let curun = country.currencies[0].name;
 
-    curriences.innerHTML = `<b>Curriences</b>: ${curun}`;
-  }
+  //   curriences.innerHTML = `<b>Curriences</b>: ${curun}`;
+  // }
 
   const langu = country.languages;
 
   let lang = "";
   for (let i = 0; i < langu.length; i++) {
-    lang += langu[i].name + " , ";
+    lang += langu[i] + " , ";
   }
 
   languages.innerHTML = `<b>languages</b> : ${lang}`;
   borderHeder.innerHTML = `<b>Border Contries</b>:`;
   if (country.hasOwnProperty("borders")) {
-    for (let j = 0; j < country.borders.length && j < 3; j++) {
+    for (let j = 0; j < country.borders.length && j < 4; j++) {
       let border = creatElement("div", "item");
       border.innerHTML = country.borders[j];
       desc4.append(border);
+      border.addEventListener("click", viewBorder);
     }
     desc3.append(borderHeder, desc4);
-  }
+  } else desc3.append(borderHeder, "country has no borders");
   desc1.append(nativeName, popu, region, subregion, capital);
   desc2.append(domain, curriences, languages);
   wrapDiv.append(desc1, desc2);
@@ -123,6 +135,13 @@ function generateCard(country) {
   container.append(wrapper);
 }
 let back = document.querySelector(".back");
-back.addEventListener("click", function () {
-  window.location = "./index.html";
+back.addEventListener("click", () => {
+  history.back();
 });
+
+async function viewBorder() {
+  let url = this.innerHTML;
+  saveOnLocal("Cname", url);
+  document.querySelector(".container").innerHTML = "";
+  onLoad();
+}

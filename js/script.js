@@ -29,12 +29,15 @@ function toogletheme() {
   }
   saveOnLocal("themm", theme.getAttribute("href"));
 }
-function httpRequest() {
-  const xhr = new XMLHttpRequest();
+async function httpRequest() {
+  // const xhr = new XMLHttpRequest();
   const apiUrl = "https://restcountries.com/v2/all/";
-  xhr.open("GET", apiUrl, true);
-  xhr.onload = getcountries;
-  xhr.send();
+  let response = await fetch(apiUrl).then((response) => response.json());
+  console.log(response);
+  getcountries(response);
+  // xhr.open("GET", apiUrl, true);
+  // xhr.onload = getcountries;
+  // xhr.send();
 }
 function saveOnLocal(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
@@ -71,10 +74,11 @@ function generateCard(country) {
   desc.append(popu, region, capital);
   card.append(flag, cname, desc);
   cardscontainer.append(card);
-  card.addEventListener("click", function () {
+  card.addEventListener("click",()=> {
     let couName = country;
-    saveOnLocal("Cname", couName);
-       window.location = "./country.html";
+    saveOnLocal("Cname",country.alpha3Code);
+    console.log(country.alpha3Code);
+           window.location = "./country.html";
   });
 }
 
@@ -84,14 +88,14 @@ function creatElement(tag, eclass) {
   return Element;
 }
 
-function getcountries() {
-  if (this.status === 200) {
-    const countries = JSON.parse(this.responseText);
+function getcountries(countries) {
+  // if (this.status === 200) {
+  //   const countries = JSON.parse(this.responseText);
     for (let i = 0; i < countries.length; i++) {
       generateCard(countries[i]);
     }
   }
-}
+
 
 function filter(region) {
   const contries = document.querySelectorAll(".card .region");
@@ -107,7 +111,7 @@ window.addEventListener("load", onLoad);
 let listitems = document.querySelectorAll(".menu li");
 let filterText = document.querySelector(".filter-txt");
 listitems.forEach((element) => {
-  element.addEventListener("click", function () {
+  element.addEventListener("click",()=> {
     filterText.innerHTML = element.innerHTML;
     element.parentElement.parentElement.classList.remove("desplay-menu");
     filter(element.innerHTML);
@@ -118,13 +122,13 @@ let search = document.getElementById("search");
 search.addEventListener("keyup", searchByName);
 
 let themechange = document.querySelector(".theme");
-themechange.addEventListener("click", function () {
+themechange.addEventListener("click",()=> {
   changeIcon();
   toogletheme();
 });
 
 let customselect = document.querySelector(".custom-select");
 let menu = document.querySelector(".menu");
-customselect.addEventListener("click", function () {
+customselect.addEventListener("click", ()=> {
   menu.classList.toggle("desplay-menu");
 });
