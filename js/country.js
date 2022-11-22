@@ -1,7 +1,10 @@
 window.addEventListener("load", onLoad);
 
 function onLoad() {
-  let countryObj = getitemFromLocal("Cname");
+  let PassedData = window.location.href;
+  let passeValue = PassedData.slice(PassedData.lastIndexOf("=") + 1);
+  console.log(passeValue);
+  // let countryObj = getitemFromLocal("Cname");
   let localTheme = getitemFromLocal("themm");
   const theme = document.getElementsByTagName("link")[0];
   let hrefSrc = theme.getAttribute("href");
@@ -10,9 +13,7 @@ function onLoad() {
     theme.setAttribute("href", localTheme);
     changeIcon();
   }
-  fetchData(countryObj);
-
-  //  generateCard(countryObj);
+  fetchData(passeValue);
 }
 async function fetchData(countryObj) {
   let url = countryObj;
@@ -140,8 +141,8 @@ back.addEventListener("click", () => {
 });
 
 async function viewBorder() {
-  let url = this.innerHTML;
-  saveOnLocal("Cname", url);
-  document.querySelector(".container").innerHTML = "";
-  onLoad();
+  let data = this.innerHTML;
+  let url = "../country.html?data=" + encodeURIComponent(data);
+  console.log(url);
+  window.location.href = url;
 }

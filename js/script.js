@@ -2,7 +2,7 @@ function onLoad() {
   let theme = document.getElementsByTagName("link")[0];
   let th = JSON.parse(localStorage.getItem("themm"));
   if (th !== theme.getAttribute("href") && th !== null) {
-    console.log(th,theme.getAttribute("href"));
+    console.log(th, theme.getAttribute("href"));
     theme.setAttribute("href", th);
     changeIcon();
   }
@@ -66,7 +66,7 @@ function generateCard(country) {
   let capital = creatElement("p", "capital");
 
   flag.setAttribute("src", country.flags.svg);
-  flag.setAttribute("alt",`flag of ${country.name}`);
+  flag.setAttribute("alt", `flag of ${country.name}`);
   cname.innerHTML = country.name;
   popu.innerHTML = `<b>population</b>: ${country.population}`;
   region.innerHTML = `<b>Region</b> : ${country.region}`;
@@ -74,11 +74,14 @@ function generateCard(country) {
   desc.append(popu, region, capital);
   card.append(flag, cname, desc);
   cardscontainer.append(card);
-  card.addEventListener("click",()=> {
+  card.addEventListener("click", () => {
     let couName = country;
-    saveOnLocal("Cname",country.alpha3Code);
+    saveOnLocal("Cname", country.alpha3Code);
     console.log(country.alpha3Code);
-           window.location = "./country.html";
+    let data = country.alpha3Code;
+    let url = "../country.html?data="+encodeURIComponent(data);
+     console.log(url);
+    window.location.href = url;
   });
 }
 
@@ -91,11 +94,10 @@ function creatElement(tag, eclass) {
 function getcountries(countries) {
   // if (this.status === 200) {
   //   const countries = JSON.parse(this.responseText);
-    for (let i = 0; i < countries.length; i++) {
-      generateCard(countries[i]);
-    }
+  for (let i = 0; i < countries.length; i++) {
+    generateCard(countries[i]);
   }
-
+}
 
 function filter(region) {
   const contries = document.querySelectorAll(".card .region");
@@ -111,7 +113,7 @@ window.addEventListener("load", onLoad);
 let listitems = document.querySelectorAll(".menu li");
 let filterText = document.querySelector(".filter-txt");
 listitems.forEach((element) => {
-  element.addEventListener("click",()=> {
+  element.addEventListener("click", () => {
     filterText.innerHTML = element.innerHTML;
     element.parentElement.parentElement.classList.remove("desplay-menu");
     filter(element.innerHTML);
@@ -122,13 +124,13 @@ let search = document.getElementById("search");
 search.addEventListener("keyup", searchByName);
 
 let themechange = document.querySelector(".theme");
-themechange.addEventListener("click",()=> {
+themechange.addEventListener("click", () => {
   changeIcon();
   toogletheme();
 });
 
 let customselect = document.querySelector(".custom-select");
 let menu = document.querySelector(".menu");
-customselect.addEventListener("click", ()=> {
+customselect.addEventListener("click", () => {
   menu.classList.toggle("desplay-menu");
 });
