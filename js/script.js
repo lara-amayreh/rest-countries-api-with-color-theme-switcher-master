@@ -30,14 +30,10 @@ function toogletheme() {
   saveOnLocal("themm", theme.getAttribute("href"));
 }
 async function httpRequest() {
-  // const xhr = new XMLHttpRequest();
   const apiUrl = "https://restcountries.com/v2/all/";
   let response = await fetch(apiUrl).then((response) => response.json());
   console.log(response);
   getcountries(response);
-  // xhr.open("GET", apiUrl, true);
-  // xhr.onload = getcountries;
-  // xhr.send();
 }
 function saveOnLocal(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
@@ -92,8 +88,6 @@ function creatElement(tag, eclass) {
 }
 
 function getcountries(countries) {
-  // if (this.status === 200) {
-  //   const countries = JSON.parse(this.responseText);
   for (let i = 0; i < countries.length; i++) {
     generateCard(countries[i]);
   }
@@ -107,9 +101,7 @@ function filter(region) {
     else contries[i].parentElement.parentElement.style.display = "flex";
   }
 }
-
 window.addEventListener("load", onLoad);
-
 let listitems = document.querySelectorAll(".menu li");
 let filterText = document.querySelector(".filter-txt");
 listitems.forEach((element) => {

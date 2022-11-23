@@ -73,15 +73,15 @@ function generateCard(country) {
   let wrapper = creatElement("div", "wrapper");
   let flag = creatElement("img", "flag");
   let descWrapper = creatElement("div", "descWrapper");
-  let cname = creatElement("h3", "cnme");
+  let cname = creatElement("h3", "cname");
   let wrapDiv = creatElement("div", "wrapDiv");
-  let desc1 = creatElement("p", "desc");
+  let desc1 = creatElement("p", "desc1");
   let nativeName = creatElement("p", "popu");
   let popu = creatElement("p", "popu");
   let region = creatElement("p", "popu");
   let subregion = creatElement("p", "popu");
   let capital = creatElement("p", "popu");
-  let desc2 = creatElement("p", "desc");
+  let desc2 = creatElement("p", "desc1");
   let domain = creatElement("p", "popu");
   let curriences = creatElement("p", "popu");
   let languages = creatElement("p", "popu");
@@ -93,25 +93,26 @@ function generateCard(country) {
   flag.setAttribute("alt", `flag of ${country.name}`);
   wrapper.append(flag);
   cname.innerHTML = country.name.common;
-  // if (country.hasOwnProperty("nativeName")) {
-  let NativeName = Object.values(country.name.nativeName)[0].common;
-  nativeName.innerHTML = `<b>nativeName</b>: ${NativeName}`;
-  // } else nativeName.innerHTML = `<b>nativeName</b>:${country.name}`;
+  if (country.name.hasOwnProperty("nativeName")) {
+    let NativeName = Object.values(country.name.nativeName)[0].common;
+    nativeName.innerHTML = `<b>nativeName</b>: ${NativeName}`;
+  } else {
+   nativeName.innerHTML = `<b>nativeName</b>:${country.name.common}`;
+    console.log("no");
+  }
   popu.innerHTML = `<b>population</b>: ${country.population}`;
   region.innerHTML = `<b>Region</b>: ${country.region}`;
   subregion.innerHTML = `<b>SubRegion</b>: ${country.subregion}`;
   capital.innerHTML = `<b>Capital</b>: ${country.capital}`;
   wrapDiv.append(cname, desc1);
   domain.innerHTML = `<b>Top Level Domain</b>: ${country.tld[0]}`;
-  // if (country.hasOwnProperty("currencies")) {
-  //   let curun = country.currencies[0].name;
-
-  //   curriences.innerHTML = `<b>Curriences</b>: ${curun}`;
-  // }
-
+  if(country.hasOwnProperty("currencies")) {
+  let curun = Object.values(country.currencies)[0];
+  console.log(curun);
+  curriences.innerHTML = `<b>Curriences</b>: ${curun.name}`;}
+  if (country.hasOwnProperty("languages")) {
   const langu = Object.values(country.languages);
-
-  languages.innerHTML = `<b>languages</b> : ${langu}`;
+  languages.innerHTML = `<b>languages</b> : ${langu}`;}
   borderHeder.innerHTML = `<b>Border Contries</b>:`;
   if (country.hasOwnProperty("borders")) {
     for (let j = 0; j < country.borders.length && j < 4; j++) {
