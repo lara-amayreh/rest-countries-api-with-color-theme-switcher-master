@@ -49,6 +49,7 @@ header>h1 {
     padding: 15px 20px;
     border-radius: 5px;
     width: 100%;
+    display: flex;
 }
 
 .search #search {
@@ -165,6 +166,10 @@ header>h1 {
     flex-direction: column;
     gap: 10px;
     padding: 20px;
+}
+
+#search {
+    width: 100%;
 }
 
 @media (min-width: 768px) {
