@@ -64,12 +64,58 @@ function creatElement(tag, eclass) {
   Element.classList.add(eclass);
   return Element;
 }
+function AddNative(country) {
+  if (country.name.hasOwnProperty("nativeName")) {
+    let NativeName = Object.values(country.name.nativeName)[0].common;
+    return NativeName;
+  } else {
+    return country.name.common;
+  }
+}
+function AddCurencies(country) {
+  if (country.hasOwnProperty("currencies")) {
+    let curun = Object.values(country.currencies)[0];
+    return curun.name;
+  } else return "not Available";
+}
+
+function AddTLD(country) {
+  if (country.hasOwnProperty("tld")) {
+    return country.tld[0];
+  } else return "Not Available";
+}
+
+function AddLanguages(country) {
+  if (country.hasOwnProperty("languages")) {
+    return Object.values(country.languages);
+  } else return "Not Available";
+}
+
+function AddBorders(country) {
+  let desc4 = creatElement("p", "desc4");
+
+  if (country.hasOwnProperty("borders")) {
+    for (let j = 0; j < country.borders.length && j < 4; j++) {
+      let border = creatElement("div", "item");
+      border.innerHTML = country.borders[j];
+      console.log(desc4);
+      desc4.append(border);
+      border.addEventListener("click", viewBorder);
+    }
+    return desc4;
+  } else return "country has no borders";
+}
+
+async function viewBorder() {
+  let data = this.innerHTML;
+  let url = "./country.html?data=" + encodeURIComponent(data);
+  console.log(url);
+  window.location.href = url;
+}
 
 function generateCard(country) {
   console.log(country);
-
   let container = document.querySelector(".container");
-
   let wrapper = creatElement("div", "wrapper");
   let flag = creatElement("img", "flag");
   let descWrapper = creatElement("div", "descWrapper");
@@ -86,43 +132,23 @@ function generateCard(country) {
   let curriences = creatElement("p", "popu");
   let languages = creatElement("p", "popu");
   let borderHeder = creatElement("p", "borderheder");
-  let desc4 = creatElement("p", "desc4");
   let desc3 = creatElement("p", "desc3");
 
   flag.setAttribute("src", country.flags.svg);
   flag.setAttribute("alt", `flag of ${country.name}`);
   wrapper.append(flag);
   cname.innerHTML = country.name.common;
-  if (country.name.hasOwnProperty("nativeName")) {
-    let NativeName = Object.values(country.name.nativeName)[0].common;
-    nativeName.innerHTML = `<b>nativeName</b>: ${NativeName}`;
-  } else {
-   nativeName.innerHTML = `<b>nativeName</b>:${country.name.common}`;
-    console.log("no");
-  }
-  popu.innerHTML = `<b>population</b>: ${country.population}`;
-  region.innerHTML = `<b>Region</b>: ${country.region}`;
-  subregion.innerHTML = `<b>SubRegion</b>: ${country.subregion}`;
-  capital.innerHTML = `<b>Capital</b>: ${country.capital}`;
-  wrapDiv.append(cname, desc1);
-  domain.innerHTML = `<b>Top Level Domain</b>: ${country.tld[0]}`;
-  if(country.hasOwnProperty("currencies")) {
-  let curun = Object.values(country.currencies)[0];
-  console.log(curun);
-  curriences.innerHTML = `<b>Curriences</b>: ${curun.name}`;}
-  if (country.hasOwnProperty("languages")) {
-  const langu = Object.values(country.languages);
-  languages.innerHTML = `<b>languages</b> : ${langu}`;}
-  borderHeder.innerHTML = `<b>Border Contries</b>:`;
-  if (country.hasOwnProperty("borders")) {
-    for (let j = 0; j < country.borders.length && j < 4; j++) {
-      let border = creatElement("div", "item");
-      border.innerHTML = country.borders[j];
-      desc4.append(border);
-      border.addEventListener("click", viewBorder);
-    }
-    desc3.append(borderHeder, desc4);
-  } else desc3.append(borderHeder, "country has no borders");
+  nativeName.innerHTML = `<b>nativeName : </b> ${AddNative(country)}`;
+  popu.innerHTML = `<b>population : </b>${country.population}`;
+  region.innerHTML = `<b>Region : </b> ${country.region}`;
+  subregion.innerHTML = `<b>SubRegion : </b> ${country.subregion}`;
+  capital.innerHTML = `<b>Capital : </b> ${country.capital}`;
+  curriences.innerHTML = `<b>Curriences : </b> ${AddCurencies(country)}`;
+  domain.innerHTML = `<b>Top Level Domain : </b> ${AddTLD(country)}`;
+  languages.innerHTML = `<b>languages : </b> ${AddLanguages(country)}`;
+
+  borderHeder.innerHTML = `<b>Border Countries : </b>`;
+  desc3.append(borderHeder, AddBorders(country));
   desc1.append(nativeName, popu, region, subregion, capital);
   desc2.append(domain, curriences, languages);
   wrapDiv.append(desc1, desc2);
@@ -130,14 +156,8 @@ function generateCard(country) {
   wrapper.append(descWrapper);
   container.append(wrapper);
 }
+
 let back = document.querySelector(".back");
 back.addEventListener("click", () => {
   history.back();
 });
-
-async function viewBorder() {
-  let data = this.innerHTML;
-  let url = "./country.html?data=" + encodeURIComponent(data);
-  console.log(url);
-  window.location.href = url;
-}

@@ -100,10 +100,11 @@
         justify-content: space-between;
         gap: 50px;
     }
-.cname {
-    font-size: 30px;
-    
-}
+
+    .cname {
+        font-size: 30px;
+
+    }
 
     .desc3 .item {
         width: 100%;
