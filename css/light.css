@@ -11,16 +11,23 @@ body {
     color: var(--VeryDarkBlueText);
 }
 
-header ,.menu {
+header,
+.menu {
     background-color: var(--WhiteElements);
     box-shadow: 0 0 15px var(--DarkGrayInput);
 }
 
 
-.search , .item,.card ,.filter ,.flag{
+.search,
+.item,
+.card,
+.filter,
+.flag {
     box-shadow: 0 0 5px var(--DarkGrayInput);
     background-color: var(--WhiteElements);
 }
 
 
-
+.back {
+    box-shadow: 0 0 5px var(--DarkGrayInput);
+}

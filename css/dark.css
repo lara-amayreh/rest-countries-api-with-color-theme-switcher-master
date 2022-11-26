@@ -14,9 +14,11 @@ main {
 
 header,
 .search,
-.filter,.menu,
+.filter,
+.menu,
 .card {
     background-color: var(--DarkBlueElement);
+    box-shadow: 0 0 6px black;
 }
 
 .search #search {
@@ -27,8 +29,14 @@ header,
 .item {
     background-color: var(--DarkBlueElement);
     color: var(--WhiteText);
+    box-shadow: 0 0 3px black;
 }
+
 .menu {
     background-color: var(--DarkBlueElement);
 
+}
+
+.flag {
+    box-shadow: 0 0 5px black;
 }

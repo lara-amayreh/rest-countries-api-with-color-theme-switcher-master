@@ -86,8 +86,17 @@ function AddTLD(country) {
 }
 
 function AddLanguages(country) {
+  let allLang = creatElement("div", "allLan");
   if (country.hasOwnProperty("languages")) {
-    return Object.values(country.languages);
+    let array = Object.values(country.languages);
+
+    for (let j = 0; j < array.length && j < 8; j++) {
+      console.log(array[j]);
+      let p = creatElement("p", "lan");
+      p.innerHTML = `${array[j]} , `;
+      allLang.append(p);
+    }
+    return allLang.innerHTML;
   } else return "Not Available";
 }
 
@@ -95,7 +104,7 @@ function AddBorders(country) {
   let desc4 = creatElement("p", "desc4");
 
   if (country.hasOwnProperty("borders")) {
-    for (let j = 0; j < country.borders.length && j < 4; j++) {
+    for (let j = 0; j < country.borders.length && j < 6; j++) {
       let border = creatElement("div", "item");
       border.innerHTML = country.borders[j];
       console.log(desc4);
@@ -145,7 +154,9 @@ function generateCard(country) {
   capital.innerHTML = `<b>Capital : </b> ${country.capital}`;
   curriences.innerHTML = `<b>Curriences : </b> ${AddCurencies(country)}`;
   domain.innerHTML = `<b>Top Level Domain : </b> ${AddTLD(country)}`;
-  languages.innerHTML = `<b>languages : </b> ${AddLanguages(country)}`;
+  languages.innerHTML = `<div class = "ARRAYLANG"><b>languages : </b> ${AddLanguages(
+    country
+  )}</div>`;
 
   borderHeder.innerHTML = `<b>Border Countries : </b>`;
   desc3.append(borderHeder, AddBorders(country));
